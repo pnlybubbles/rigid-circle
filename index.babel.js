@@ -11,7 +11,7 @@ function drawCircle(x, y, r) {
 
 const world = new World(500, 500, 4000, 4000);
 
-world.gravity(0, 0.8);
+world.gravity(0, 5);
 
 for (let i = 0; i < 20; i++) {
   let circle = new Circle(Math.random() * 500, Math.random() * 250, 10, 1);

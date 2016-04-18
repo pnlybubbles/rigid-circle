@@ -1,6 +1,8 @@
 class Vec2 {
   constructor(a, b) {
-    this.v = [a, b];
+    const a_ = a || 0;
+    const b_ = b || 0;
+    this.v = [a_, b_];
   }
 
   add(v2) {

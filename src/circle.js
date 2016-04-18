@@ -34,15 +34,28 @@ class Circle {
       && this.x - this.r < c.x + c.r
       && this.y + this.r > c.y - c.r
       && this.y - this.r < c.y + c.r) {
-      const xr = this.x - c.x;
-      const yr = this.y - c.y;
-      const f = new Vec2(xr, yr);
-      const n = new Vec2(this.vx, this.vy).normalize().negate();
-      if (f.len() < Math.pow(this.r + c.r, 2)) {
-        const rf = f.add(n.scale(2 * f.negate().dot(n))).scale(this.e);
-        this.vx = rf.v[0];
-        this.vy = rf.v[1];
-        return rf;
+      const f = new Vec2(this.x - c.x, this.y - c.y);
+      const va = new Vec2(this.vx, this.vy);
+      const vb = new Vec2(c.vx, c.vy);
+      const e = this.e * c.e;
+      let va_;
+      let vb_;
+      if (f.sqrLen() < Math.pow(this.r + c.r, 2)) {
+        if (c.m === null) {
+          va_ = vb.add(vb.sub(va).scale(e));
+          vb_ = new Vec2();
+        } else if (this.m === null) {
+          va_ = new Vec2();
+          vb_ = va.add(va.sub(vb).scale(e));
+        } else {
+          va_ = vb.scale((1 + e) * c.m).add(va.scale(this.m)).sub(va.scale(e * c.m)).scale(1 / (this.m + c.m));
+          vb_ = va.scale((1 - e) * this.m).add(vb.scale(c.m)).sub(vb.scale(e * this.m)).scale(1 / (this.m + c.m));
+        }
+        this.vx = va_.v[0];
+        this.vy = va_.v[1];
+        c.vx = vb_.v[0];
+        c.vy = vb_.v[1];
+        return true;
       }
     }
     return null;
