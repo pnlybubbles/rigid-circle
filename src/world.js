@@ -26,7 +26,9 @@ class World {
     for (let i = this.circles.length - 1; i >= 0; i--) {
       this.circles[i].gforce(this.gx, this.gy, dt);
       for (let j = i - 1; j >= 0; j--) {
-        if (this.circles[i].collision(this.circles[j])) {
+        const rf = this.circles[i].collision(this.circles[j]);
+        if (rf) {
+          // console.log(rf);
           this.circles[i].gforceEnabled = false;
           this.circles[j].gforceEnabled = false;
           this.circles[i].vx = 0;

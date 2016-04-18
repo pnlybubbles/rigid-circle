@@ -1,3 +1,5 @@
+import {Vec2} from './math';
+
 class Circle {
   constructor(x, y, r, m) {
     this.x = x;
@@ -34,9 +36,13 @@ class Circle {
       && this.y - this.r < c.y + c.r) {
       const xr = this.x - c.x;
       const yr = this.y - c.y;
-      if (Math.pow(xr, 2) + Math.pow(yr, 2) < Math.pow(this.r + c.r, 2)) {
-        // return [xr, -yr]; // [vx, xy]
-        return true;
+      const f = new Vec2(xr, yr);
+      const n = new Vec2(this.vx, this.vy).normalize().negate();
+      if (f.len() < Math.pow(this.r + c.r, 2)) {
+        const rf = f.add(n.scale(2 * f.negate().dot(n))).scale(this.e);
+        this.vx = rf.v[0];
+        this.vy = rf.v[1];
+        return rf;
       }
     }
     return null;
