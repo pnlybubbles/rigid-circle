@@ -28,13 +28,13 @@ class World {
       for (let j = i - 1; j >= 0; j--) {
         const rf = this.circles[i].collision(this.circles[j]);
         if (rf) {
-          console.log(rf);
-          // this.circles[i].gforceEnabled = false;
-          // this.circles[j].gforceEnabled = false;
-          // this.circles[i].vx = 0;
-          // this.circles[j].vx = 0;
-          // this.circles[i].vy = 0;
-          // this.circles[j].vy = 0;
+          // console.log(rf);
+          this.circles[i].gforceEnabled = false;
+          this.circles[j].gforceEnabled = false;
+          this.circles[i].vx = 0;
+          this.circles[j].vx = 0;
+          this.circles[i].vy = 0;
+          this.circles[j].vy = 0;
         }
       }
       if (!this.circles[i].inside(0, 0, this.width, this.height)) {
