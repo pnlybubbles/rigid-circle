@@ -35,7 +35,7 @@ class Vec2 {
 
   normalize() {
     const len = this.len();
-    return this.scale(this.v[0] / len, this.v[1] / len);
+    return new Vec2(this.v[0] / len, this.v[1] / len);
   }
 }
 

@@ -11,18 +11,42 @@ function drawCircle(x, y, r) {
 
 const world = new World(500, 500, 4000, 4000);
 
-world.gravity(0, 5);
+world.gravity(0, 2);
 
 for (let i = 0; i < 20; i++) {
   let circle = new Circle(Math.random() * 500, Math.random() * 250, 10, 1);
+  circle.vy = -1;
   world.add(circle);
 }
 
 for (let i = 0; i < 10; i++) {
-  let circle = new Circle(50 * i + 25, 480, 20, null);
+  let circle = new Circle(50 * i + 25, 490, 20, 100000000000000);
   circle.gforceEnabled = false;
   world.add(circle);
 }
+
+for (let i = 0; i < 10; i++) {
+  let circle = new Circle(10, 50 * i + 25, 20, 100000000000000);
+  circle.gforceEnabled = false;
+  world.add(circle);
+}
+
+for (let i = 0; i < 10; i++) {
+  let circle = new Circle(490, 50 * i + 25, 20, 100000000000000);
+  circle.gforceEnabled = false;
+  world.add(circle);
+}
+
+// {
+//   let circle = new Circle(250, 400, 100, 100000000000000);
+//   circle.gforceEnabled = false;
+//   world.add(circle);
+// }
+
+// {
+//   let circle = new Circle(249, 10, 10, 1);
+//   world.add(circle);
+// }
 
 function step() {
   requestAnimationFrame(step);
